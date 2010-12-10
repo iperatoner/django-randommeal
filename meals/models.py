@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-import django_randommeal.meals.settings as meals_settings
+from . import settings as meals_settings
 
 class MealType(models.Model):
     """Model representing a single type of meal (e.g. breakfast)."""

@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from django_randommeal.meals import views
+from . import views
 
 
 urlpatterns = patterns('',

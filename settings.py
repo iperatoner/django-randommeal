@@ -78,9 +78,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'django_randommeal.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    'D:\\Projekte\\Hobbyprojekte\\Internet-Applikationen\\RandomMeal\\Eclipse-Code\\django_randommeal\\templates\\'
 )
 
 INSTALLED_APPS = (
@@ -90,4 +88,5 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
+    'meals',
 )

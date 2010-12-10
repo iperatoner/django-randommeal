@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}RandomMeal Generator{% endblock %}
+{% block pagetitle %}Generated Meals{% endblock %}
+
+{% block main %}
+<ul>
+{% for mg in grouped_meals %}
+	<li>
+		<strong>{{ mg.type.title }}</strong>: {{ mg.meal.title }}
+	</li>
+{% endfor %}
+</ul>
+{% endblock %}
