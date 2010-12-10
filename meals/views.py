@@ -15,11 +15,11 @@ def generate(request):
         # TODO: Filter methods (later)
         
         # Generating a random index to then being able to select a random item from the list
-        meal_index = math.ceil(random.random() * len(possible_meals))
+        meal_index = int(math.ceil(random.random() * len(possible_meals))) - 1
         meal = possible_meals[meal_index]
         
         # Adding a group of mealtype + randomly generated meals to the list
-        grouped_meals = grouped_meals.append({
+        grouped_meals.append({
             'type': mt,
             'meal': meal
         })
