@@ -1,9 +1,6 @@
-import random
-import math
-
 from .models import MealType, Meal, EatenMeal, UserProfile
 from .mealfilter import MealFilter
-from .utils import render_template, JSONResponse
+from .utils import render_template, get_random_item, JSONResponse
 
 def index(request):
     return render_template(request, 'meals/index.html')
@@ -15,11 +12,14 @@ def generate(request):
         possible_meals = Meal.objects.filter(type=mt)
         
         # TODO: Apply filters
+        # Duration:         Range (Select box with predefined range, resp. Input boxes: duration_from, duration_to)
+        # Price:            Range (Select box with predefined range, resp. Input boxes: price_from, price_to)
+        # Complexity:       Integer list (Check boxes: low[yes|no], med[yes|no], high[yes|no])
+        # Nutrient content: Integer list (Check boxes: low[yes|no], med[yes|no], high[yes|no])
+        # Vegetarian:       Boolean (Check box: vegetarian[yes|no])
+        # Vegan:            Boolean (Check box: vegetarian[yes|no])
         
-        # Generating a random index to then being able to select a random item from the list
-        meal_index = int(math.ceil(random.random() * len(possible_meals))) - 1
-        assert meal_index <= len(possible_meals) - 1
-        meal = possible_meals[meal_index]
+        meal = get_random_item(possible_meals)
         
         # Adding a group of mealtype + randomly generated meals to the list
         grouped_meals.append({

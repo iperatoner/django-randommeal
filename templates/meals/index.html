@@ -4,5 +4,25 @@
 {% block pagetitle %}RandomMeal{% endblock %}
 
 {% block main %}
-<a href="/generate/">Generate meals!</a>
+<form method="post" action="{% url rdm_generate %}">
+	<input type="submit" value="Generate!" />
+	
+	<fieldset>
+		<legend>Preparation filters</legend>
+		
+		<h2>Duration:</h2>
+		<select name="duration_pair">
+			<option value="0-10">Quick (0 - 10 min)</option>
+			<option value="10-30">Medium (10 - 30 min)</option>
+			<option value="30-60">Long (30 - 60 min)</option>
+			<option value="60-350">Very Long (60+ min)</option>
+			<option value="custom">Custom range:</option>
+		</select>
+		<input type="text" name="duration_custom_from" /> to 
+		<input type="text" name="duration_custom_to" />
+		
+		<h2>Complexity:</h2>
+		<input type="checkbox" name="complexity_verylow" value="1" />
+	</fieldset>
+</form>
 {% endblock %}
