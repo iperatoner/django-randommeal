@@ -23,9 +23,9 @@ class Meal(models.Model):
     title = models.CharField(_("Title"), help_text=_("The title or name of this meal."), max_length=128)
     notes = models.TextField(_("Notes"), help_text=_("Notes or a description of this meal."))
     
-    complexity = models.IntegerField(_("Complexity"), help_text=_("How complex is it to prepare this meal?"), choices=meals_settings.LEVEL_CHOICES)
+    complexity = models.IntegerField(_("Complexity"), help_text=_("How complex is it to prepare this meal?"), choices=meals_settings.LEVEL_CHOICES_MODEL)
     duration = models.IntegerField(_("Duration"), help_text=_("How much time will it approximately take to prepare this meal?")) # in minutes
-    nutrient_content = models.IntegerField(_("Nutrient content"), help_text=_("How nutritious is that meal?"), choices=meals_settings.LEVEL_CHOICES)
+    nutrient_content = models.IntegerField(_("Nutrient content"), help_text=_("How nutritious is that meal?"), choices=meals_settings.LEVEL_CHOICES_MODEL)
     vegetarian = models.BooleanField(_("Vegetarian?"), help_text=_("Is this meal suitable for vegetarian people?"))
     vegan = models.BooleanField(_("Vegan?"), help_text=_("Is this meal suitable for vegan people?"))
     price = models.IntegerField(_("Approximate price"), help_text=_("How much will it probably cost to prepare this meal?"))

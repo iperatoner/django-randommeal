@@ -5,8 +5,8 @@ from .models import MealType, Meal
 
 
 class MealAdmin(admin.ModelAdmin):
-    list_display = ('title', 'complexity', 'duration', 'nutrient_content', 'vegetarian', 'vegan', 'price',)
-    list_filter = ('complexity', 'duration', 'nutrient_content', 'vegetarian', 'vegan', 'price',)
+    list_display = ('title', 'complexity', 'duration', 'nutrient_content', 'vegetarian', 'vegan', 'price', 'type',)
+    list_filter = ('complexity', 'nutrient_content', 'vegetarian', 'vegan', 'type',)
     search_fields = ('title', 'notes',)
     ordering = ('title',)
 

@@ -2,7 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 
 # General constants
 DELIMITER = '-'
-CUSTOM_NAME = 'custom'
+CUSTOM_VALUE = 'custom'
 
 # Simple level settings
 LEVEL_VERYLOW = 1
@@ -11,13 +11,15 @@ LEVEL_MEDIUM = 3
 LEVEL_HIGH = 4
 LEVEL_VERYHIGH = 5
 
-LEVEL_CHOICES = (
+LEVEL_CHOICES_MODEL = (
     (LEVEL_VERYLOW, _('Very low')),
     (LEVEL_LOW, _('Low')),
     (LEVEL_MEDIUM, _('Medium')),
     (LEVEL_HIGH, _('High')),
     (LEVEL_VERYHIGH, _('Very high'))
 )
+
+LEVEL_CHOICES_FORM = LEVEL_CHOICES_MODEL
 
 # Duration range settings
 DURATION_QUICK = ('0', '10')
@@ -30,7 +32,7 @@ DURATION_CHOICES = (
     (DELIMITER.join(DURATION_MEDIUM), _('Medium (10-30 min)')),
     (DELIMITER.join(DURATION_LONG), _('Long (30-60 min)')),
     (DELIMITER.join(DURATION_VERYLONG), _('Very long (60+ min)')),
-    (CUSTOM_NAME, _('Custom range'))
+    (CUSTOM_VALUE, _('Custom range'))
 )
 
 # Price range settings
@@ -46,16 +48,16 @@ PRICE_CHOICES = (
     (DELIMITER.join(PRICE_MEDIUM), _('Medium (5-10 EUR)')),
     (DELIMITER.join(PRICE_HIGH), _('High (10-20 EUR)')),
     (DELIMITER.join(PRICE_VERYHIGH), _('Very high (20+ EUR)')),
-    (CUSTOM_NAME, _('Custom range'))
+    (CUSTOM_VALUE, _('Custom range'))
 )
 
 # Vegetarian/Vegan settings
 VEG_YES = 1
 VEG_NO = 0
-VEG_NEVERMIND = 2
+VEG_BOTH = 2
 
 VEG_CHOICES = (
     (VEG_YES, _('Yes')),
     (VEG_NO, _('No')),
-    (VEG_NEVERMIND, _('Doesn\'t matter'))
+    (VEG_BOTH, _('Doesn\'t matter'))
 )
