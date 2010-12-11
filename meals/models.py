@@ -24,7 +24,7 @@ class Meal(models.Model):
     notes = models.TextField(_("Notes"), help_text=_("Notes or a description of this meal."))
     
     complexity = models.IntegerField(_("Complexity"), help_text=_("How complex is it to prepare this meal?"), choices=meals_settings.LEVEL_CHOICES_MODEL)
-    duration = models.IntegerField(_("Duration"), help_text=_("How much time will it approximately take to prepare this meal?")) # in minutes
+    duration = models.IntegerField(_("Duration"), help_text=_("How much time will it approximately take to prepare this meal?"))
     nutrient_content = models.IntegerField(_("Nutrient content"), help_text=_("How nutritious is that meal?"), choices=meals_settings.LEVEL_CHOICES_MODEL)
     vegetarian = models.BooleanField(_("Vegetarian?"), help_text=_("Is this meal suitable for vegetarian people?"))
     vegan = models.BooleanField(_("Vegan?"), help_text=_("Is this meal suitable for vegan people?"))

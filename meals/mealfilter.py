@@ -1,9 +1,5 @@
 from .models import Meal
 
-# TODO:
-# I probably won't need the exclude methods,
-# because everything can be done through filters
-# (checkboxes in interface)
 
 class MealFilter(object):
     def __init__(self, queryset=None):

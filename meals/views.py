@@ -2,7 +2,6 @@ from .models import MealType, Meal, EatenMeal, UserProfile
 from .mealfilter import MealFilter
 from .forms import MealFilterForm
 from .utils import sequence_to_int, render_template, get_random_item, get_range_field_value, JSONResponse
-from . import settings as meals_settings
 
 def index(request):
     form = MealFilterForm(request.POST or None)

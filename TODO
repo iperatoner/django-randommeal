@@ -1,0 +1,6 @@
+Features:
+---------
+* Button "Habs gegessen", um zu speichern, wie oft ein Essen gegessen wurde
+  - Darauf aufbauend die Speisen bevorzugen, die noch nicht so oft gegessen wurden
+* User Interface
+* AJAX
