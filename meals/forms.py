@@ -16,7 +16,7 @@ class MealFilterForm(forms.Form):
         required=False
     )
     custom_price_from = forms.IntegerField(max_value=999, required=False)
-    custom_price_to = forms.IntegerField(max_valie=999, required=False)
+    custom_price_to = forms.IntegerField(max_value=999, required=False)
     
     # Complexity
     include_complexity_groups = forms.MultipleChoiceField(
