@@ -39,11 +39,11 @@ class EatenMeal(models.Model):
     
     user_profile = models.ForeignKey('UserProfile')
     meal = models.ForeignKey(Meal, verbose_name=_("Meal"))
-    times = models.IntegerField(_("How often?"))
+    times = models.IntegerField(_("How often?"), blank=True, null=True)
     last_time = models.DateTimeField(default=datetime.now)
     
     def __unicode__(self):
-        return "%s: %d %s" % (self.user_profile.user.name, self.times, self.meal.title)
+        return "%s: %d %s" % (self.user_profile.user.username, self.times, self.meal.title)
 
 
 class UserProfile(models.Model):
@@ -53,4 +53,4 @@ class UserProfile(models.Model):
     eaten_meals = models.ManyToManyField(Meal, through=EatenMeal)
 
     def __unicode__(self):
-        return "%s\'s profile" % self.user.username
+        return self.user.username

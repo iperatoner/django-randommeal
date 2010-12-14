@@ -7,7 +7,10 @@
 <ul>
 {% for mg in grouped_meals %}
 	<li>
-		<strong>{{ mg.type.title }}</strong>: {{ mg.meal.title }}
+		<strong>{{ mg.type.title }}</strong>: {{ mg.meal.title }} 
+		{% if user.is_authenticated %}
+		&bull; <a href="{% url rdm_have_eaten mg.meal.id %}?{{ grouped_meals_urlencoded }}">Have eaten!</a>
+		{% endif %}
 	</li>
 {% endfor %}
 </ul>

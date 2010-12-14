@@ -1,11 +1,11 @@
 from .models import Meal
 
-
-class MealFilter(object):
-    def __init__(self, queryset=None):
-        self.queryset = queryset
-        self.exclude_args = {}
-        self.filter_args = {}
+class QuerysetFilter(object):
+    def __init__(self, queryset=None, model=None):
+        self._model = model
+        self._queryset = queryset
+        self._exclude_args = {}
+        self._filter_args = {}
         
     def general_action(self, action, model_field, value):
         """
@@ -15,10 +15,28 @@ class MealFilter(object):
         """
         assert action in ['filter', 'exclude']
         if action == 'filter':
-            self.filter_args[model_field] = value
+            self._filter_args[model_field] = value
         elif action == 'exclude':
-            self.exclude_args[model_field] = value
+            self._exclude_args[model_field] = value
 
+    def bind(self, queryset=None, model=None):
+        """Binds a Queryset and/or a Model class to the Filter."""
+        if queryset is not None:
+            self._queryset = queryset
+        if model is not None:
+            self._model = model
+        
+    def execute(self):
+        """Applies all saved actions onto the queryset."""
+        if self._queryset is not None:
+            return self._queryset.filter(**self._filter_args)
+        else:
+            return self._model.objects.filter(**self._filter_args)
+
+
+class MealFilter(QuerysetFilter):
+    def __init__(self, queryset=None):
+        super(MealFilter, self).__init__(queryset, Meal)
 
     def filter_complexity(self, complexity_levels):
         """Filters a specific rate of complexity out of the queryset."""
@@ -49,15 +67,3 @@ class MealFilter(object):
     def filter_vegan(self, vegan):
         """Includes or excludes vegan meals into or from the queryset."""
         self.general_action('filter', 'vegan', vegan)
-
-
-    def bind(self, qs):
-        """Bind a Queryset of Meals to the MealFilter."""
-        self.queryset = qs
-        
-    def execute(self):
-        """Applies all saved actions onto the queryset."""
-        if self.queryset is not None:
-            return self.queryset.filter(**self.filter_args)
-        else:
-            return Meal.objects.filter(**self.filter_args)

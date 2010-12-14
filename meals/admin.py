@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from .models import MealType, Meal
+from .models import MealType, Meal, EatenMeal
 
 
 class MealAdmin(admin.ModelAdmin):
@@ -16,5 +16,11 @@ class MealTypeAdmin(admin.ModelAdmin):
     search_fields = ('title',)
     ordering = ('position',)
 
+class EatenMealAdmin(admin.ModelAdmin):
+    list_display = ('user_profile', 'meal', 'times', 'last_time')
+    list_filter = ('last_time', 'user_profile',)
+    search_fields = ('user_profile', 'meal', 'times',)
+
 admin.site.register(Meal, MealAdmin)
 admin.site.register(MealType, MealTypeAdmin)
+admin.site.register(EatenMeal, EatenMealAdmin)

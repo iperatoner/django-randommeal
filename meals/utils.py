@@ -4,7 +4,9 @@ import random
 from django.template import RequestContext, loader
 from django.http import HttpResponse, Http404
 from django.utils import simplejson as json
+from django.shortcuts import get_object_or_404
 
+from .models import Meal, MealType
 from . import settings as meals_settings
 
 def sequence_to_int(seq):
@@ -48,6 +50,34 @@ def get_range_field_value(form, pair_field, custom_from_field, custom_to_field, 
     if values_to_int:
         range = [int(x) for x in range]
     return range
+
+def urlencode_grouped_meals(grouped_meals):
+    """
+    Creates a dump of grouped meals (item: type + meal) for use in url query strings.
+    Return format: 'meals=type_id:meal_id [...]'
+    Example: 'meals=1:1,2:3,3:6,4:2'
+    """
+    grouped_meals_urlencoded = 'grouped_meals='
+    for group in grouped_meals:
+        grouped_meals_urlencoded += str(group['type'].id) + ':' + str(group['meal'].id) + ','
+    return grouped_meals_urlencoded[:-1]
+
+def urldecode_grouped_meals(grouped_meals_urlencoded):
+    """
+    Decodes a url-dump of grouped meals (item: type + meal)
+    to be able to fetch the objects for the template.
+    """
+    grouped_meals = []
+    groups = grouped_meals_urlencoded.split(',')
+    for group in groups:
+        type_id, meal_id = group.split(':')
+        type = get_object_or_404(MealType, id=type_id)
+        meal = get_object_or_404(Meal, id=meal_id)
+        grouped_meals.append({
+            'type': type,
+            'meal': meal
+        })
+    return grouped_meals
 
 
 class JSONResponse(HttpResponse):
