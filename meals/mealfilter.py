@@ -1,19 +1,20 @@
 from django.db.models import Avg, Max
 
-from .models import Meal, EatenMeal
+from .models import Meal, EatenMeal, UserProfile
 from .utils import recent_weeks, QuerysetFilter
 
 class MealFilter(QuerysetFilter):
-    def __init__(self, queryset=None):
-        super(MealFilter, self).__init__(queryset, Meal)
+    def __init__(self, request=None, queryset=None):
+        super(MealFilter, self).__init__(request, queryset, Meal)
         
     def exclude_often_eaten(self):
         """Excludes meals that the current user has eaten very often in the last three weeks."""
         # Get eaten meals that were eaten in the last three weeks by the current user
-        recent_eaten_meals = EatenMeal.objects.filter(user=self._request.user, last_time__range=recent_weeks())
+        user_profile = UserProfile.load_from_user(self._request.user)
+        recent_eaten_meals = EatenMeal.objects.filter(user_profile=user_profile, last_time__range=recent_weeks())
         
-        avg_times_eaten = recent_eaten_meals.aggregate(Avg('times')[0])
-        max_times_eaten = recent_eaten_meals.aggregate(Max('times')[0])
+        avg_times_eaten = recent_eaten_meals.aggregate(Avg('times'))['times__avg']
+        max_times_eaten = recent_eaten_meals.aggregate(Max('times'))['times__max']
         
         # Calculating the average of the maximum times and average times of eaten meals,
         # to get a compromise between the imho too low normal average
@@ -24,12 +25,15 @@ class MealFilter(QuerysetFilter):
         possible_eaten_meals = recent_eaten_meals.filter(times__lt=higher_avg)
         
         # Retrieving the meals that belong to the possible "eaten" meals
-        possible_meal_ids = []
-        for pem in possible_eaten_meals:
-            possible_meal_ids.append(pem.meal.id)
-        possible_meals = self._model.objects.filter(id__in=possible_meal_ids)
+        possible_meals = possible_eaten_meals.get_meals()
         
-        self.bitwise_action('&', possible_meals)
+        # Retrieving the meals that've not been eaten, i.e. there is no EatenMeal instance, yet
+        eaten_meals = EatenMeal.objects.filter(user_profile=user_profile).get_meals()
+        never_eaten_meals = Meal.objects.all() - eaten_meals
+        
+        # We're not doing a second bitwise action with "|", because it would also
+        # add never_eaten_meals that were not filtered by the general filters before
+        self.bitwise_action('&', possible_meals | never_eaten_meals)
 
     def filter_type(self, type):
         """Filters by a specific meal type."""

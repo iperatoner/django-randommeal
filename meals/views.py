@@ -103,7 +103,7 @@ def have_eaten(request, meal_id):
     meal = get_object_or_404(Meal, id=meal_id)
     
     # Creating a profile for this user if it wasn't already created
-    user_profile = UserProfile.objects.get_or_create(user=request.user)[0]
+    user_profile = UserProfile.load_from_user(request.user)
      
     # Creating the EatenMeal entry for this meal (if it wasn't already created) and increase the "have eaten"-counter
     eaten_meal = EatenMeal.objects.get_or_create(user_profile=user_profile, meal=meal)[0]

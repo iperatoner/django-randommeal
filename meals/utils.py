@@ -3,7 +3,7 @@ import random
 from datetime import datetime, timedelta
 
 from django.template import RequestContext, loader
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse
 from django.utils import simplejson as json
 from django.shortcuts import get_object_or_404
 
@@ -144,13 +144,18 @@ class QuerysetFilter(object):
     def execute_bitwise(self):
         """Executes all saved bitwise operations onto the queryset."""
         assert self._resulting_queryset is not None
+        
         for bwo_and in self._bitwise_operations['&']:
-            self._resulting_queryset = self._resulting_queryset & bwo_and
+            resulting_qs = self._resulting_queryset & bwo_and
         for bwo_or in self._bitwise_operations['|']:
-            self._resulting_queryset = self._resulting_queryset | bwo_or
+            resulting_qs = self._resulting_queryset | bwo_or
+        
+        # Only use the new queryset if it contains anything
+        if len(resulting_qs) > 0:
+            self._resulting_queryset = resulting_qs
             
     def execute(self):
         """Applies all saved actions (general and bitwise) onto the queryset."""
         self.execute_general()
-        self.excute_bitwise()
+        self.execute_bitwise()
         return self._resulting_queryset

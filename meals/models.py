@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 from . import settings as meals_settings
+from .managers import EatenMealManager, MealManager
 
 class MealType(models.Model):
     """Model representing a single type of meal (e.g. breakfast)."""
@@ -30,6 +31,8 @@ class Meal(models.Model):
     vegan = models.BooleanField(_("Vegan?"), help_text=_("Is this meal suitable for vegan people?"))
     price = models.IntegerField(_("Approximate price"), help_text=_("How much will it probably cost to prepare this meal?"))
     
+    objects = MealManager()
+    
     def __unicode__(self):
         return "%s: %s" % (self.type.title, self.title)
 
@@ -42,6 +45,8 @@ class EatenMeal(models.Model):
     times = models.IntegerField(_("How often?"), blank=True, null=True)
     last_time = models.DateTimeField(default=datetime.now)
     
+    objects = EatenMealManager()
+    
     def __unicode__(self):
         return "%s: %d %s" % (self.user_profile.user.username, self.times, self.meal.title)
 
@@ -51,6 +56,10 @@ class UserProfile(models.Model):
     
     user = models.ForeignKey(User, unique=True)
     eaten_meals = models.ManyToManyField(Meal, through=EatenMeal)
+
+    @classmethod
+    def load_from_user(cls, user):
+        return cls.objects.get_or_create(user=user)[0]
 
     def __unicode__(self):
         return self.user.username
