@@ -22,7 +22,7 @@ def generate(request):
         form = MealFilterForm(request.POST or request.GET or None)
         
         if form.is_valid():
-            mealfilter = MealFilter()
+            mealfilter = MealFilter(request)
             
             # Applying the selected filters
             
@@ -50,17 +50,18 @@ def generate(request):
                 vegan = bool(int(form.cleaned_data['vegan']))
                 mealfilter.filter_vegan(vegan)
             
+            if form.cleaned_data['exclude_often_eaten']:
+                mealfilter.exclude_often_eaten()
+            
             # A list of type+meal dicts
             grouped_meals = []
             
             # Going through all available mealtypes and randomly select a meal of it
             mealtypes = MealType.objects.all().order_by('position')
             for mt in mealtypes:
-                # Getting queryset by meal type and binding it to the mealfilter
-                possible_meals = Meal.objects.filter(type=mt)
-                mealfilter.bind(possible_meals)
+                mealfilter.filter_type(mt)
                 
-                # Execute the applied filters
+                # Execute all applied filters
                 possible_meals = mealfilter.execute()
                 
                 # Wether there were matches or not

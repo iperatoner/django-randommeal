@@ -1,5 +1,6 @@
 import math
 import random
+from datetime import datetime, timedelta
 
 from django.template import RequestContext, loader
 from django.http import HttpResponse, Http404
@@ -79,7 +80,77 @@ def urldecode_grouped_meals(grouped_meals_urlencoded):
         })
     return grouped_meals
 
+def recent_weeks():
+    """
+    Returns a tuple of two datetime instances:
+    The beginning of the day 3 weeks before today and the end of today.
+    """
+    now = datetime.now()
+    today_start = datetime.min.replace(year=now.year, month=now.month, day=now.day)
+    today_end = (today_start + timedelta(days=1)) - timedelta.resolution
+    three_weeks_before = today_start - timedelta(weeks=3)
+    return (three_weeks_before, today_end)
+
 
 class JSONResponse(HttpResponse):
     def __init__(self, json_dict):
         HttpResponse.__init__(self, json.dumps(json_dict), mimetype='application/json')
+        
+
+class QuerysetFilter(object):
+    def __init__(self, request=None, queryset=None, model=None):
+        self._request = request
+        self._model = model
+        self._queryset = queryset
+        self._resulting_queryset = queryset
+        
+        self._exclude_args = {}
+        self._filter_args = {}
+        self._bitwise_operations = {'&': [], '|': []}
+        
+    def general_action(self, action, model_field, value):
+        """
+        Executes a general action, like filtering or excluding
+        specific stuff (`value`) on a specific field
+        (`model_field`, also including django's magic `__in` and `__range` stuff)
+        """
+        assert action in ['filter', 'exclude']
+        if action == 'filter':
+            self._filter_args[model_field] = value
+        elif action == 'exclude':
+            self._exclude_args[model_field] = value
+    
+    def bitwise_action(self, operator, queryset):
+        assert operator in ['&', '|']
+        if operator == '&':
+            self._bitwise_operations['&'].append(queryset)
+        elif operator == '|':
+            self._bitwise_operations['|'].append(queryset)
+
+    def bind(self, queryset=None, model=None):
+        """Binds a Queryset and/or a Model class to the Filter."""
+        if queryset is not None:
+            self._queryset = queryset
+        if model is not None:
+            self._model = model
+    
+    def execute_general(self):
+        """Applies all saved general actions onto the queryset."""
+        if self._queryset is not None:
+            self._resulting_queryset = self._queryset.filter(**self._filter_args)
+        else:
+            self._resulting_queryset =  self._model.objects.filter(**self._filter_args)
+    
+    def execute_bitwise(self):
+        """Executes all saved bitwise operations onto the queryset."""
+        assert self._resulting_queryset is not None
+        for bwo_and in self._bitwise_operations['&']:
+            self._resulting_queryset = self._resulting_queryset & bwo_and
+        for bwo_or in self._bitwise_operations['|']:
+            self._resulting_queryset = self._resulting_queryset | bwo_or
+            
+    def execute(self):
+        """Applies all saved actions (general and bitwise) onto the queryset."""
+        self.execute_general()
+        self.excute_bitwise()
+        return self._resulting_queryset

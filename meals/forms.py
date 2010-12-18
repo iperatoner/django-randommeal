@@ -2,6 +2,7 @@ from django import forms
 from . import settings as meals_settings
 
 filter_onoff_attrs = {'class': 'filter-onoff'}
+single_filter_onoff_attrs = {'class': 'single-filter-onoff'}
 
 class MealFilterForm(forms.Form):
     # Duration
@@ -37,6 +38,9 @@ class MealFilterForm(forms.Form):
         choices=meals_settings.LEVEL_CHOICES_FORM,
         required=False
     )
+    
+    # Nutrient content
+    exclude_often_eaten = forms.BooleanField(widget=forms.CheckboxInput(attrs=single_filter_onoff_attrs), required=False)
     
     # Vegetarian
     vegetarian = forms.ChoiceField(

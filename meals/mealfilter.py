@@ -1,43 +1,40 @@
-from .models import Meal
+from django.db.models import Avg, Max
 
-class QuerysetFilter(object):
-    def __init__(self, queryset=None, model=None):
-        self._model = model
-        self._queryset = queryset
-        self._exclude_args = {}
-        self._filter_args = {}
-        
-    def general_action(self, action, model_field, value):
-        """
-        Executes a general action, like filtering or excluding
-        specific stuff (`value`) on a specific field
-        (`model_field`, also including django's magic `__in` and `__range` stuff)
-        """
-        assert action in ['filter', 'exclude']
-        if action == 'filter':
-            self._filter_args[model_field] = value
-        elif action == 'exclude':
-            self._exclude_args[model_field] = value
-
-    def bind(self, queryset=None, model=None):
-        """Binds a Queryset and/or a Model class to the Filter."""
-        if queryset is not None:
-            self._queryset = queryset
-        if model is not None:
-            self._model = model
-        
-    def execute(self):
-        """Applies all saved actions onto the queryset."""
-        if self._queryset is not None:
-            return self._queryset.filter(**self._filter_args)
-        else:
-            return self._model.objects.filter(**self._filter_args)
-
+from .models import Meal, EatenMeal
+from .utils import recent_weeks, QuerysetFilter
 
 class MealFilter(QuerysetFilter):
     def __init__(self, queryset=None):
         super(MealFilter, self).__init__(queryset, Meal)
+        
+    def exclude_often_eaten(self):
+        """Excludes meals that the current user has eaten very often in the last three weeks."""
+        # Get eaten meals that were eaten in the last three weeks by the current user
+        recent_eaten_meals = EatenMeal.objects.filter(user=self._request.user, last_time__range=recent_weeks())
+        
+        avg_times_eaten = recent_eaten_meals.aggregate(Avg('times')[0])
+        max_times_eaten = recent_eaten_meals.aggregate(Max('times')[0])
+        
+        # Calculating the average of the maximum times and average times of eaten meals,
+        # to get a compromise between the imho too low normal average
+        # and the too high maximum
+        higher_avg = int((avg_times_eaten + max_times_eaten) / 2)
+        
+        # Filtering eaten meals that are lesser than the new average
+        possible_eaten_meals = recent_eaten_meals.filter(times__lt=higher_avg)
+        
+        # Retrieving the meals that belong to the possible "eaten" meals
+        possible_meal_ids = []
+        for pem in possible_eaten_meals:
+            possible_meal_ids.append(pem.meal.id)
+        possible_meals = self._model.objects.filter(id__in=possible_meal_ids)
+        
+        self.bitwise_action('&', possible_meals)
 
+    def filter_type(self, type):
+        """Filters by a specific meal type."""
+        self.general_action('filter', 'type', type)
+        
     def filter_complexity(self, complexity_levels):
         """Filters a specific rate of complexity out of the queryset."""
         self.general_action('filter', 'complexity__in', complexity_levels)
