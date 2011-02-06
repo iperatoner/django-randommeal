@@ -5,11 +5,11 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404 
 from django.contrib.auth.decorators import login_required
  
-from .models import MealType, Meal, EatenMeal, UserProfile
+from .models import MealType, Meal
 from .mealfilter import MealFilter
 from .forms import MealFilterForm
 from .utils import sequence_to_int, render_template, get_random_item, get_range_field_value
-from .utils import urlencode_grouped_meals, urldecode_grouped_meals, JSONResponse
+from .utils import urlencode_grouped_meals, urldecode_grouped_meals, get_eaten_meal, JSONResponse
 
 
 def index(request):
@@ -102,11 +102,9 @@ def generate(request):
 def have_eaten(request, meal_id):
     meal = get_object_or_404(Meal, id=meal_id)
     
-    # Creating a profile for this user if it wasn't already created
-    user_profile = UserProfile.load_from_user(request.user)
-     
-    # Creating the EatenMeal entry for this meal (if it wasn't already created) and increase the "have eaten"-counter
-    eaten_meal = EatenMeal.objects.get_or_create(user_profile=user_profile, meal=meal)[0]
+    # Get the proper EatenMeal-instance
+    eaten_meal = get_eaten_meal(request.user, meal)
+    
     if eaten_meal.times is not None:
         eaten_meal.times += 1
     else:

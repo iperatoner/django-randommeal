@@ -1,23 +1,33 @@
 {% extends 'base.html' %}
+{% load meal_tags %}
 
-{% block title %}RandomMeal Generator{% endblock %}
-{% block pagetitle %}Generated Meals{% endblock %}
+{% block title %}Result{% endblock %}
 
 {% block main %}
 <h2 id="result-heading">Result</h2>
-<ul class="universal-list">
+<ul class="universal-list result-list">
 {% for mg in grouped_meals %}
-	<li>
-		{{ mg.type.title }}:
-		{% if mg.meal.id %}
-			{{ mg.meal.title }} 
-		{% else %}
-			No meal found matching the filter.
-		{% endif %}
-		
-		{% if user.is_authenticated and mg.meal.id %}
-		&bull; <a href="{% url rdm_have_eaten mg.meal.id %}?{{ grouped_meals_urlencoded }}">Have eaten!</a>
-		{% endif %}
+	<li class="clearfix">
+	   <div class="result-mealtype">
+	       {{ mg.type.title }}
+	   </div>
+	   
+       <div class="result-arrow"></div>
+       
+       <div class="result-mealtitle">
+	       {% if mg.meal.id %}
+	           {{ mg.meal.title }} 
+	       {% else %}
+	           No meal found matching the filter.
+	       {% endif %}
+       </div>
+       
+       {% if user.is_authenticated and mg.meal.id %}
+           <div class="result-eatencounter">{% times_eaten mg.meal user %}</div>
+           <a href="{% url rdm_have_eaten mg.meal.id %}?{{ grouped_meals_urlencoded }}"
+              class="result-haveeaten button"
+              ondragstart="return false;">Have eaten!</a>
+       {% endif %}
 	</li>
 {% endfor %}
 </ul>

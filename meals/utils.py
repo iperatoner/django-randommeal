@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.utils import simplejson as json
 from django.shortcuts import get_object_or_404
 
-from .models import Meal, MealType
+from .models import Meal, MealType, EatenMeal, UserProfile
 from . import settings as meals_settings
 
 def sequence_to_int(seq):
@@ -104,6 +104,16 @@ def recent_weeks():
     today_end = (today_start + timedelta(days=1)) - timedelta.resolution
     three_weeks_before = today_start - timedelta(weeks=3)
     return (three_weeks_before, today_end)
+
+def get_eaten_meal(user, meal):
+    """Returns the eaten meal object of the given user profile and meal object."""
+    # Creating a profile for this user if it wasn't already created
+    user_profile = UserProfile.load_from_user(user)
+    
+    # Creating the EatenMeal entry for this meal (if it wasn't already created) and increase the "have eaten"-counter
+    eaten_meal = EatenMeal.objects.get_or_create(user_profile=user_profile, meal=meal)[0]
+    
+    return eaten_meal
 
 
 class JSONResponse(HttpResponse):
