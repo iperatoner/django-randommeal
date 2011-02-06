@@ -57,12 +57,18 @@ div#content-wrapper {
 
 /*** SPECIAL HEADINGS ***/
 
-h2#apply-filters-heading {
-	margin-top: 12px;
+h2#apply-filters-heading,
+h2#result-heading {
+    margin-top: 12px;
     margin-bottom: 0px;
     padding-bottom: 10px;
     
-	border-bottom: 1px solid #424242;
+    border-bottom: 1px solid #424242;
+}
+
+h2#result-heading {
+    font-size: 26px;
+    font-weight: 400;
 }
 
 

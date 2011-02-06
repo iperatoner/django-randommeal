@@ -4,10 +4,11 @@
 {% block pagetitle %}Generated Meals{% endblock %}
 
 {% block main %}
-<ul>
+<h2 id="result-heading">Result</h2>
+<ul class="universal-list">
 {% for mg in grouped_meals %}
 	<li>
-		<strong>{{ mg.type.title }}</strong>:
+		{{ mg.type.title }}:
 		{% if mg.meal.id %}
 			{{ mg.meal.title }} 
 		{% else %}
