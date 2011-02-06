@@ -60,7 +60,15 @@ def urlencode_grouped_meals(grouped_meals):
     """
     grouped_meals_urlencoded = 'grouped_meals='
     for group in grouped_meals:
-        grouped_meals_urlencoded += str(group['type'].id) + ':' + str(group['meal'].id) + ','
+        # Use 'None' as the meal id if no meals matching the filter could be found
+        # The `urldecode_grouped_meals` function will then put a 
+        # NoneType object into the grouped_meals list instead of a meal object
+        if group['meal'] is not None:
+            meal_id = group['meal'].id
+        else:
+            meal_id = 'None'
+            
+        grouped_meals_urlencoded += str(group['type'].id) + ':' + str(meal_id) + ','
     return grouped_meals_urlencoded[:-1]
 
 def urldecode_grouped_meals(grouped_meals_urlencoded):
@@ -73,7 +81,13 @@ def urldecode_grouped_meals(grouped_meals_urlencoded):
     for group in groups:
         type_id, meal_id = group.split(':')
         type = get_object_or_404(MealType, id=type_id)
-        meal = get_object_or_404(Meal, id=meal_id)
+        
+        # If there was no meal found, make it `None` instead of a meal object
+        if meal_id != 'None':
+            meal = get_object_or_404(Meal, id=meal_id)
+        else:
+            meal = None
+            
         grouped_meals.append({
             'type': type,
             'meal': meal
@@ -145,10 +159,12 @@ class QuerysetFilter(object):
         """Executes all saved bitwise operations onto the queryset."""
         assert self._resulting_queryset is not None
         
+        resulting_qs = self._resulting_queryset
+        
         for bwo_and in self._bitwise_operations['&']:
-            resulting_qs = self._resulting_queryset & bwo_and
+            resulting_qs = resulting_qs & bwo_and
         for bwo_or in self._bitwise_operations['|']:
-            resulting_qs = self._resulting_queryset | bwo_or
+            resulting_qs = resulting_qs | bwo_or
         
         # Only use the new queryset if it contains anything
         if len(resulting_qs) > 0:

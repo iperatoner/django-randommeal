@@ -1,12 +1,94 @@
 {% extends 'base.html' %}
 
-{% block title %}RandomMeal Generator{% endblock %}
-{% block pagetitle %}RandomMeal{% endblock %}
-
 {% block main %}
-<form method="post" action="{% url rdm_generate %}">
-	{% csrf_token %}
-	{{ filterform.as_ul }}
-	<input type="submit" value="Generate!" />
+<form method="post" action="{% url rdm_generate %}" class="filter-form">
+    {% csrf_token %}
+    
+    <input type="submit" class="list-compile" value="Compile a list!" />
+    
+    <h2 id="apply-filters-heading">Apply some filters</h2>
+    
+    <fieldset class="contains-select">
+        <legend>
+            {{ filterform.filter_duration }}
+            <label for="id_filter_duration">{{ filterform.filter_duration.label }}?</label>
+        </legend>
+        {{ filterform.duration_pair }}
+        
+        <span class="deactivable-elements custom-range inactive">
+            <label for="id_custom_duration_from">from</label> {{ filterform.custom_duration_from }}
+            <label for="id_custom_duration_to">to</label> {{ filterform.custom_duration_to }}
+        </span>
+    </fieldset>
+                
+	<fieldset class="contains-select">
+	    <legend>
+	        {{ filterform.filter_price }}
+	        <label for="id_filter_price">{{ filterform.filter_price.label }}?</label>
+	    </legend>
+	    {{ filterform.price_pair }}
+	    
+	    <span class="deactivable-elements custom-range inactive">
+	        <label for="id_custom_price_from">from</label> {{ filterform.custom_price_from }}
+	        <label for="id_custom_price_to">to</label> {{ filterform.custom_price_to }}
+	    </span>
+	</fieldset>
+                
+    <fieldset>
+        <legend>
+            {{ filterform.filter_complexity }}
+            <label for="id_filter_complexity">{{ filterform.filter_complexity.label }}?</label>
+        </legend>
+        
+        {% for choice in filterform.complexity_levels.field.choices %}
+            <input type="checkbox" name="complexity_levels" value="{{ choice.0 }}" id="id_complexity_levels_{{ forloop.counter0 }}">
+            <label for="id_complexity_levels_{{ forloop.counter0 }}">{{ choice.1 }}</label>
+        {% endfor %}
+    </fieldset>
+                
+    <fieldset>
+        <legend>
+            {{ filterform.filter_nutrient_content }}
+            <label for="id_filter_nutrient_content">{{ filterform.filter_nutrient_content.label }}?</label>
+        </legend>
+        
+        {% for choice in filterform.nutrient_content_levels.field.choices %}
+            <input type="checkbox" name="nutrient_content_levels" value="{{ choice.0 }}" id="id_nutrient_content_levels_{{ forloop.counter0 }}">
+            <label for="id_nutrient_content_levels_{{ forloop.counter0 }}">{{ choice.1 }}</label>
+        {% endfor %}
+    </fieldset>
+    
+    <fieldset>
+        <legend>
+            <input type="checkbox" class="hidden" />
+            <label for="id_vegetarian_0">{{ filterform.vegetarian.label }}?</label>
+        </legend>
+        
+        {% for choice in filterform.vegetarian.field.choices %}
+            <input type="radio" name="vegetarian" value="{{ choice.0 }}" id="id_vegetarian_{{ forloop.counter0 }}">
+            <label for="id_vegetarian_{{ forloop.counter0 }}">{{ choice.1 }}</label>
+        {% endfor %}
+    </fieldset>
+    
+    <fieldset>
+        <legend>
+            <input type="checkbox" class="hidden" />
+            <label for="id_vegan_0">{{ filterform.vegan.label }}?</label>
+        </legend>
+        
+        {% for choice in filterform.vegan.field.choices %}
+            <input type="radio" name="vegan" value="{{ choice.0 }}" id="id_vegan_{{ forloop.counter0 }}">
+            <label for="id_vegan_{{ forloop.counter0 }}">{{ choice.1 }}</label>
+        {% endfor %}
+    </fieldset>
+    
+    <fieldset>
+        <legend>
+            {{ filterform.exclude_often_eaten }}
+            <label for="id_exclude_often_eaten">{{ filterform.exclude_often_eaten.label }}?</label>
+        </legend>
+        
+        <label for="id_exclude_often_eaten" class="first-label">{{ filterform.exclude_often_eaten.help_text }}</label>
+    </fieldset>
 </form>
 {% endblock %}

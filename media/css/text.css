@@ -1,0 +1,65 @@
+body {
+    font-family: 'Yanone Kaffeesatz', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: #f3f3f3;
+    text-shadow: 0px -1px 1px rgba(0, 0, 0, .65);
+}
+
+a:focus {
+    outline: 1px dotted;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+    text-align: center;
+    
+    cursor: default;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+h1 {
+    font-size: 39px;
+}
+
+h2 {
+    font-size: 19px;
+}
+
+h3 {
+    font-size: 17px;
+}
+
+h4 {
+    font-size: 15px;
+}
+
+ol { list-style: decimal }
+ul { list-style: disc }
+li { margin-left: 30px }
+
+p, h1, h2, h3, h4,
+ol, ul, dl,
+pre, table,
+address, fieldset {
+    margin-bottom: 20px;
+    line-height: 1.45;
+}
+
+input, select {
+    font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+}
+
+input[type=submit],
+input[type=button],
+input[type=reset],
+button {
+    font-family: 'Yanone Kaffeesatz', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+}
+
+select, select option { padding: 1px; }
+
+.hidden { visibility: hidden }

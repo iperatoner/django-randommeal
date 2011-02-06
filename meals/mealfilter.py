@@ -28,12 +28,15 @@ class MealFilter(QuerysetFilter):
         possible_meals = possible_eaten_meals.get_meals()
         
         # Retrieving the meals that've not been eaten, i.e. there is no EatenMeal instance, yet
-        eaten_meals = EatenMeal.objects.filter(user_profile=user_profile).get_meals()
-        never_eaten_meals = Meal.objects.all() - eaten_meals
+        all_eaten_meals = EatenMeal.objects.filter(user_profile=user_profile).get_meals()
+        never_eaten_meals = Meal.objects.all() - all_eaten_meals
+        
+        # Meals that have already been eaten, but not in the last three weeks
+        notrecent_eaten_meals = all_eaten_meals - recent_eaten_meals.get_meals()
         
         # We're not doing a second bitwise action with "|", because it would also
         # add never_eaten_meals that were not filtered by the general filters before
-        self.bitwise_action('&', possible_meals | never_eaten_meals)
+        self.bitwise_action('&', possible_meals | never_eaten_meals | notrecent_eaten_meals)
 
     def filter_type(self, type):
         """Filters by a specific meal type."""

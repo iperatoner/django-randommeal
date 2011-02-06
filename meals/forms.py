@@ -32,7 +32,7 @@ class MealFilterForm(forms.Form):
     )
     
     # Nutrient content
-    filter_nutrient_content = forms.BooleanField(widget=forms.CheckboxInput(attrs=filter_onoff_attrs), required=False)
+    filter_nutrient_content = forms.BooleanField(widget=forms.CheckboxInput(attrs=filter_onoff_attrs), required=False, label='Filter nutritive value')
     nutrient_content_levels = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
         choices=meals_settings.LEVEL_CHOICES_FORM,
@@ -40,7 +40,8 @@ class MealFilterForm(forms.Form):
     )
     
     # Nutrient content
-    exclude_often_eaten = forms.BooleanField(widget=forms.CheckboxInput(attrs=single_filter_onoff_attrs), required=False)
+    exclude_often_eaten = forms.BooleanField(widget=forms.CheckboxInput(attrs=single_filter_onoff_attrs),
+         required=False, help_text="This will exclude meals that you've eaten most in the past three weeks.")
     
     # Vegetarian
     vegetarian = forms.ChoiceField(

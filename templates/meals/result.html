@@ -7,8 +7,14 @@
 <ul>
 {% for mg in grouped_meals %}
 	<li>
-		<strong>{{ mg.type.title }}</strong>: {{ mg.meal.title }} 
-		{% if user.is_authenticated %}
+		<strong>{{ mg.type.title }}</strong>:
+		{% if mg.meal.id %}
+			{{ mg.meal.title }} 
+		{% else %}
+			No meal found matching the filter.
+		{% endif %}
+		
+		{% if user.is_authenticated and mg.meal.id %}
 		&bull; <a href="{% url rdm_have_eaten mg.meal.id %}?{{ grouped_meals_urlencoded }}">Have eaten!</a>
 		{% endif %}
 	</li>

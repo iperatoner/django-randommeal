@@ -1,0 +1,175 @@
+<!DOCTYPE html> 
+<html lang="en">
+    <head>
+        <title>RandomMeal</title>
+        
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        
+        <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:extralight,light,regular,bold' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" media="screen" href="css/reset.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/text.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+        
+    </head>
+
+    <body>
+    
+        <h1><a href="#">RandomMeal</a></h1>
+        <div id="header-divider"></div>
+        
+        <div id="content-wrapper">
+            <form method="post" action="#" class="filter-form">
+                <input type="submit" class="list-compile" value="Compile a list!" />
+                
+                <h2 id="apply-filters-heading">Apply some filters</h2>
+                
+                <fieldset class="contains-select">
+                    <legend>
+                        <input type="checkbox" name="filter_duration" id="id_filter_duration" value="1" />
+                        <label for="id_filter_duration">Filter duration?</label>
+                    </legend>
+                    
+                    <select name="duration_pair" id="id_duration_pair">
+                        <option value="0-10">Quick (0-10 min)</option>
+                        <option value="10-30">Medium (10-30 min)</option>
+                        <option value="30-60">Long (30-60 min)</option>
+                        <option value="60-720">Very long (60+ min)</option>
+                        <option value="custom">Custom range</option>
+                    </select>
+                    
+                    <span class="deactivable-elements custom-range inactive">
+                        <label for="id_custom_duration_from">from</label>
+                        <input type="text" name="custom_duration_from" id="id_custom_duration_from" />
+                        
+                        <label for="id_custom_duration_to">to</label>
+                        <input type="text" name="custom_duration_to" id="id_custom_duration_to" />
+                    </span>
+                </fieldset>
+                
+                <fieldset class="contains-select">
+                    <legend>
+                        <input type="checkbox" name="filter_price" id="id_filter_price" value="1" />
+                        <label for="id_filter_price">Filter price?</label>
+                    </legend>
+                    
+                    <select name="price_pair" id="id_price_pair">
+						<option value="0-2">Very low (0-2 EUR)</option>
+						<option value="2-5">Low (2-5 EUR)</option>
+						<option value="5-10">Medium (5-10 EUR)</option>
+						<option value="10-20">High (10-20 EUR)</option>
+						<option value="20-120">Very high (20+ EUR)</option>
+						<option value="custom">Custom range</option>
+					</select>
+					
+                    <span class="deactivable-elements custom-range inactive">
+                        <label for="id_custom_price_from">from</label>
+                        <input type="text" name="custom_price_from" id="id_custom_price_from" />
+                        
+                        <label for="id_custom_price_to">to</label>
+                        <input type="text" name="custom_price_to" id="id_custom_price_to" />
+                    </span>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>
+                        <input type="checkbox" name="filter_complexity" id="id_filter_complexity" value="1" />
+                        <label for="id_filter_complexity">Filter complexity?</label>
+                    </legend>
+                    
+                    
+                    <input type="checkbox" name="complexity_levels" value="1" id="id_complexity_levels_0">
+                    <label for="id_complexity_levels_0">Very low</label>
+                    
+                    <input type="checkbox" name="complexity_levels" value="1" id="id_complexity_levels_1">
+                    <label for="id_complexity_levels_1">Low</label>
+                    
+                    <input type="checkbox" name="complexity_levels" value="1" id="id_complexity_levels_2">
+                    <label for="id_complexity_levels_2">Medium</label>
+                
+                    <input type="checkbox" name="complexity_levels" value="1" id="id_complexity_levels_3">
+                    <label for="id_complexity_levels_3">High</label>
+                    
+                    <input type="checkbox" name="complexity_levels" value="1" id="id_complexity_levels_4">
+                    <label for="id_complexity_levels_4">Very high</label>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>
+                        <input type="checkbox" name="filter_nutrient_content" id="id_filter_nutrient_content" value="1" />
+                        <label for="id_filter_nutrient_content">Filter nutritive value?</label>
+                    </legend>
+                    
+                    
+                    <input type="checkbox" name="nutrient_content_lebels" value="1" id="id_nutrient_content_levels_0">
+                    <label for="id_nutrient_content_levels_0">Very low</label>
+                    
+                    <input type="checkbox" name="nutrient_content_lebels" value="1" id="id_nutrient_content_levels_1">
+                    <label for="id_nutrient_content_levels_1">Low</label>
+                    
+                    <input type="checkbox" name="nutrient_content_lebels" value="1" id="id_nutrient_content_levels_2">
+                    <label for="id_nutrient_content_levels_2">Medium</label>
+                
+                    <input type="checkbox" name="nutrient_content_lebels" value="1" id="id_nutrient_content_levels_3">
+                    <label for="id_nutrient_content_levels_3">High</label>
+                    
+                    <input type="checkbox" name="nutrient_content_lebels" value="1" id="id_nutrient_content_levels_4">
+                    <label for="id_nutrient_content_levels_4">Very high</label>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>
+                        <input type="checkbox" class="hidden" />
+                        <label for="id_vegetarian_0">Vegetarian?</label>
+                    </legend>
+                    
+                    <input type="radio" name="vegetarian" value="1" id="id_vegetarian_0">
+                    <label for="id_vegetarian_0">Yes</label>
+                    
+                    <input type="radio" name="vegetarian" value="1" id="id_vegetarian_1">
+                    <label for="id_vegetarian_1">No</label>
+                    
+                    <input type="radio" name="vegetarian" value="1" id="id_vegetarian_2">
+                    <label for="id_vegetarian_2">Doesn't matter</label>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>
+                        <input type="checkbox" class="hidden" />
+                        <label for="id_vegan_0">Vegan?</label>
+                    </legend>
+                    
+                    <input type="radio" name="vegan" value="1" id="id_vegan_0">
+                    <label for="id_vegan_0">Yes</label>
+                    
+                    <input type="radio" name="vegan" value="1" id="id_vegan_1">
+                    <label for="id_vegan_1">No</label>
+                    
+                    <input type="radio" name="vegan" value="1" id="id_vegan_2">
+                    <label for="id_vegan_2">Doesn't matter</label>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>
+                        <input type="checkbox" name="exclude_often_eaten" id="id_exclude_often_eaten" value="1" />
+                        <label for="id_exclude_often_eaten">Exclude often eaten?</label>
+                    </legend>
+                    
+                    <label for="id_exclude_often_eaten" class="first-label">This will exclude meals that you’ve eaten most in the past three weeks.</label>
+                </fieldset>
+            </form>
+            <!-- 
+            <ul class="universal-list">
+                <li>Filter duration?</li>
+                <li>Filter price?</li>
+                <li class="active">Filter complexity?</li>
+                <li>Filter nutritive value?</li>
+            </ul>
+            -->
+        </div>
+        
+        <script type="text/javascript" src="js/mt/mootools-core.min.js"></script>
+        <script type="text/javascript" src="js/mt/mootools-more.min.js"></script>
+        <script type="text/javascript" src="js/custom-range-events.js"></script>
+        <script type="text/javascript" src="js/filter-selector.js"></script>
+    </body>
+</html>

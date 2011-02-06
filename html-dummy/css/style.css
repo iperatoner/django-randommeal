@@ -1,0 +1,281 @@
+body {
+    background-image: url(../img/satin_light.gif);
+    background-repeat: repeat;
+}
+
+h1,
+div#header-divider {
+    width: 100%;
+}
+
+
+/*** WIREFRAME ***/
+
+h1 {
+    padding-top: 52px;
+    padding-bottom: 18px;
+    margin: 0px;
+    
+    background-color: rgba(0, 0, 0, .24);
+    text-shadow: -2px -1px 2px rgba(0, 0, 0, .85);
+    
+    cursor: default;
+}
+
+h1 a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+div#header-divider {
+    height: 3px;
+    background-color: rgba(0, 0, 0, 1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    position: relative;
+}
+
+div#content-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -8px;
+    
+    padding-top: 14px;
+    /*padding-left: 8px;
+    padding-right: 8px;*/
+    
+    width: 590px;
+    text-align: center;
+    
+    background-color: #5f5f5f;
+    border: 1px solid #727272;
+    
+    -moz-box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.6);
+}
+
+
+/*** SPECIAL HEADINGS ***/
+
+h2#apply-filters-heading {
+	margin-top: 12px;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+    
+	border-bottom: 1px solid #424242;
+}
+
+
+/*** UNIVERSAL LIST and FILTER FORM ***/
+
+.universal-list,
+.universal-list li,
+form.filter-form fieldset {
+    display: block;
+    margin: 0;
+}
+
+.universal-list {
+    list-style-type: none;
+}
+
+.universal-list li,
+form.filter-form fieldset {
+    text-align: left;
+    
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    
+    border-bottom: 1px solid #424242;
+    border-top: 1px solid #848484;
+    background-color: #6d6d6d;
+}
+form.filter-form fieldset.contains-select { padding-bottom: 8px } /* Special adjustments because the select element break the height/padding */
+
+.universal-list li:last-child,
+form.filter-form fieldset:last-child {
+    border-bottom: 0px;
+}
+
+
+/* Special styles for fieldsets on the start page */
+
+form.filter-form fieldset {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+form.filter-form fieldset legend {
+    float: left;
+    width: 165px;
+}
+
+form.filter-form fieldset legend input[type=checkbox] {
+    position: relative;
+    top: 1px;
+}
+
+form.filter-form fieldset legend label {
+    padding-left: 8px;
+    /* Making clickable area larger */
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+
+/* Elements inside the fieldsets on the start page */
+
+form.filter-form fieldset select {
+    width: 155px;
+}
+
+/* Adjusting the position to middle-align the form elements */
+form.filter-form fieldset select,
+form.filter-form span.custom-range {
+    position: relative;
+    top: -2px;
+}
+
+/* ">" to not apply this on the legend-checkbox */
+form.filter-form fieldset > input[type=checkbox],
+form.filter-form fieldset > input[type=radio]  {
+    position: relative;
+    top: 1px;
+    margin: 0px;
+}
+
+/* ">" to only apply this on labels directly inside the fieldset (e.g. for checkbox/radio labels) */
+form.filter-form fieldset > label {
+    margin-left: 8px;
+    margin-right: 24px;
+}
+form.filter-form fieldset > label.first-label {
+    margin-left: 0px;
+}
+
+form.filter-form span.custom-range,
+form.filter-form fieldset > label {
+    color: #161616;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, .3);
+    font-weight: 300;
+}
+
+form.filter-form span.custom-range label {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+form.filter-form span.custom-range input[type=text] {
+	width: 40px;
+}
+
+
+/*** BUTTONS ***/
+
+input[type=submit],
+input[type=button],
+input[type=reset],
+button {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    
+	font-size: 16px;
+	font-weight: 300;
+	
+	padding: 8px;
+	padding-left: 18px;
+	padding-right: 18px;
+	
+	color: #cfcfcf;
+    text-shadow: 0px -1px 1px rgba(0, 0, 0, .45);
+	
+    border-bottom: none;
+    border-right: none;
+    border-top: 1px solid #979797;
+    border-left: 1px solid #8a8a8a;
+    
+    -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0, rgb(105,105,105)),
+	    color-stop(1, rgb(132,132,132))
+	);
+	background-image: -moz-linear-gradient(
+	    center bottom,
+	    rgb(105,105,105) 0%,
+	    rgb(132,132,132) 100%
+	);
+}
+
+input[type=submit]:hover,
+input[type=button]:hover,
+input[type=reset]:hover,
+button:hover {
+	color: #efefef;
+	
+    border-top: 1px solid #a9a9a9;
+    border-left: 1px solid #9c9c9c;
+    
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0, rgb(112,112,112)),
+        color-stop(1, rgb(145,145,145))
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        rgb(112,112,112) 0%,
+        rgb(145,145,145) 100%
+    );
+    
+    -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+input[type=submit]:active,
+input[type=button]:active,
+input[type=reset]:active,
+button:active {
+    color: #efefef;
+    
+    border-top: none;
+    border-left: none;
+    border-bottom: 1px solid #a9a9a9;
+    border-right: 1px solid #9c9c9c;
+    
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, rgb(120,120,120)),
+        color-stop(1, rgb(142,142,142))
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        rgb(120,120,120) 0%,
+        rgb(142,142,142) 100%
+    );
+}
+
+input.list-compile {
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+input.list-compile:active {
+}
