@@ -161,8 +161,10 @@ form.filter-form fieldset > input[type=radio]  {
 
 /* ">" to only apply this on labels directly inside the fieldset (e.g. for checkbox/radio labels) */
 form.filter-form fieldset > label {
-    margin-left: 8px;
-    margin-right: 24px;
+    margin-left: 0px;
+    margin-right: 6px;
+    padding-left: 8px;
+    padding-right: 18px;
 }
 form.filter-form fieldset > label.first-label {
     margin-left: 0px;
