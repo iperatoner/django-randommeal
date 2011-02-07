@@ -1,13 +1,3 @@
-fieldset_active_class = 'active';
-fieldset_styles_inactive = {
-	'background-color': '#6d6d6d',
-	'border-top': '1px solid #848484'
-};
-fieldset_styles_active = {
-	'background-color': '#5d5f61',
-	'border-top': '1px solid #787a7b'
-};
-		
 window.addEvent('domready', function(){
 	Element.implement({
 		
@@ -15,8 +5,8 @@ window.addEvent('domready', function(){
 		enableFieldset: function(){
 			var fieldset = this.getParent().getParent();
 			
-			fieldset.morph(fieldset_styles_active);
-			fieldset.addClass(fieldset_active_class);
+			fieldset.morph(listitem_styles_active);
+			fieldset.addClass(listitem_active_class);
 			
 			// Re-enable all items in this fieldset
 			fieldset.getElements('> input[type=checkbox], select').each(function(el){
@@ -33,8 +23,8 @@ window.addEvent('domready', function(){
 		disableFieldset: function(){
 			var fieldset = this.getParent().getParent();
 			
-			fieldset.morph(fieldset_styles_inactive);
-			fieldset.removeClass(fieldset_active_class);
+			fieldset.morph(listitem_styles_inactive);
+			fieldset.removeClass(listitem_active_class);
 
 			// Disable all items in this fieldset
 			fieldset.getElements('> input[type=checkbox], select').each(function(el){

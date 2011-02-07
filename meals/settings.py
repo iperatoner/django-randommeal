@@ -11,6 +11,14 @@ LEVEL_MEDIUM = 3
 LEVEL_HIGH = 4
 LEVEL_VERYHIGH = 5
 
+LEVEL_CHOICES_QUICKACCESS = {
+    LEVEL_VERYLOW: (_('Very low'), 'level_verylow'),
+    LEVEL_LOW: (_('Low'), 'level_low'),
+    LEVEL_MEDIUM: (_('Medium'), 'level_medium'),
+    LEVEL_HIGH: (_('High'), 'level_high'),
+    LEVEL_VERYHIGH: (_('Very high'), 'level_veryhigh')
+}
+
 LEVEL_CHOICES_MODEL = (
     (LEVEL_VERYLOW, _('Very low')),
     (LEVEL_LOW, _('Low')),

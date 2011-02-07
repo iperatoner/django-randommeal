@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% load meal_tags %}
 
+{% block extra_js %}<script type="text/javascript" src="{{ MEDIA_URL }}js/result-collapse.js"></script>{% endblock %}
+
 {% block title %}Result{% endblock %}
 
 {% block main %}
 <h2 id="result-heading">Result</h2>
 <ul class="universal-list result-list">
 {% for mg in grouped_meals %}
-	<li class="clearfix">
+	<li>
 	   <div class="result-mealtype">
 	       {{ mg.type.title }}
 	   </div>
@@ -28,6 +30,41 @@
               class="result-haveeaten button"
               ondragstart="return false;">Have eaten!</a>
        {% endif %}
+       
+       <div class="clear"></div>
+       
+       <div class="result-description">
+           <ul class="result-meal-attributes">
+               <li class="meal-price">
+                   <span class="attribute-label">Price</span>
+                   <span class="attribute-value">{{ mg.meal.price|german_price }}&euro;</span>
+               </li>
+               <li class="meal-duration">
+                   <span class="attribute-label">Duration</span>
+                   <span class="attribute-value">{{ mg.meal.duration }}min</span>
+               </li>
+               <li class="meal-complexity">
+                   <span class="attribute-label">Complexity</span>
+                   <span class="attribute-value">{% nice_level_value mg.meal.complexity %}</span>
+               </li>
+               <li class="meal-nutritivevalue">
+                   <span class="attribute-label">Nutritive value</span>
+                   <span class="attribute-value">{% nice_level_value mg.meal.nutrient_content %}</span>
+               </li>
+               
+               {% if mg.meal.vegetarian %}
+               <li class="meal-vegetarian">
+                   <span class="attribute-value level_high">Vegetarian</span>
+               </li>
+               {% endif %}
+               {% if mg.meal.vegan %}
+               <li class="meal-vegetarian">
+                   <span class="attribute-value level_high">Vegan</span>
+               </li>
+               {% endif %}
+           </ul>
+           <p>{{ mg.meal.notes }}</p>
+       </div>
 	</li>
 {% endfor %}
 </ul>

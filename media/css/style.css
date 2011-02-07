@@ -38,6 +38,7 @@ div#content-wrapper {
     margin-left: auto;
     margin-right: auto;
     margin-top: -8px;
+    margin-bottom: 40px;
     
     padding-top: 14px;
     /*padding-left: 8px;
@@ -75,7 +76,7 @@ h2#result-heading {
 /*** UNIVERSAL LIST and FILTER FORM ***/
 
 .universal-list,
-.universal-list li,
+.universal-list > li,
 form.filter-form fieldset {
     display: block;
     margin: 0;
@@ -85,7 +86,7 @@ form.filter-form fieldset {
     list-style-type: none;
 }
 
-.universal-list li,
+.universal-list > li,
 form.filter-form fieldset {
     text-align: left;
     
@@ -100,7 +101,7 @@ form.filter-form fieldset {
 }
 form.filter-form fieldset.contains-select { padding-bottom: 8px } /* Special adjustments because the select element break the height/padding */
 
-.universal-list li:last-child,
+.universal-list > li:last-child,
 form.filter-form fieldset:last-child {
     border-bottom: 0px;
 }
@@ -325,6 +326,10 @@ input.list-compile:active {
     user-select: none;
 }
 
+.result-list > li {
+	cursor: pointer;
+}
+
 .result-mealtype,
 .result-arrow,
 .result-mealtitle,
@@ -335,7 +340,7 @@ input.list-compile:active {
 }
 
 .result-mealtype {
-	width: 92px;
+	width: 90px;
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
@@ -344,7 +349,7 @@ input.list-compile:active {
 
 .result-arrow {
 	background: url(../img/arrow.png) no-repeat;
-	width: 49px;
+	width: 46px;
 	height: 11px;
 	margin-top: 5px;
     -moz-user-select: none;
@@ -353,10 +358,7 @@ input.list-compile:active {
 }
 
 .result-mealtitle {
-	width: 300px;
-    -moz-user-select: text !important;
-    -webkit-user-select: text !important;
-    user-select: text !important;
+	width: 305px;
 }
 
 .result-eatencounter {
@@ -469,3 +471,50 @@ input.list-compile:active {
         rgb(115,115,115) 100%
     );
 }
+
+
+/*** RESULT DESCRIPTION ***/
+
+.result-description {
+    margin-left: 136px;
+    padding-top: 21px; /* Using padding, because margin begins at 21px. Weird. */
+}
+
+ul.result-meal-attributes {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	display: block;
+}
+
+ul.result-meal-attributes li {
+    margin-left: 0px;
+    margin-right: 12px;
+    float: left;
+}
+
+ul.result-meal-attributes li .attribute-label {
+    padding-right: 2px;
+}
+
+ul.result-meal-attributes li .attribute-value {
+    color: #b3b3b3;
+}
+
+ul.result-meal-attributes li,
+.result-description p {
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.result-description p {
+	margin-bottom: 0px;
+	padding-top: 8px;
+	clear: both;
+}
+
+.level_verylow { color: #e46f6f !important }
+.level_low { color: #e49866 !important }
+.level_medium { color: #e4ce83 !important }
+.level_high { color: #c9e479 !important }
+.level_veryhigh { color: #a6f15d !important }

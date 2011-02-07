@@ -50,3 +50,5 @@ table {
 .clearfix {
     display: inline-block;
 }
+
+.clear { clear: both }
