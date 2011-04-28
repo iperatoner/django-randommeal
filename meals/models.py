@@ -35,6 +35,16 @@ class Meal(models.Model):
     
     def __unicode__(self):
         return "%s: %s" % (self.type.title, self.title)
+    
+    
+class Ingredient(models.Model):
+    """Model representing a ingredient which can be added to a Meal."""
+    name = models.CharField(_("Name"), help_text=_("Name of the ingredient"), max_length=64)
+    amount = models.CharField(_("Amount"), help_text=_("How much of this ingredient is needed for the meal?"), max_length=32)
+    meal = models.ForeignKey(Meal, related_name='ingredients')
+    
+    def __unicode__(self):
+        return "%s %s" % (self.amount, self.name)
 
 
 class EatenMeal(models.Model):

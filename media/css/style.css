@@ -482,14 +482,16 @@ input.list-compile:active {
 
 ul.result-meal-attributes {
 	margin: 0;
-	padding: 0;
+	padding-bottom: 21px;
 	list-style-type: none;
 	display: block;
+	
+    border-bottom: 1px solid #424242;
 }
 
 ul.result-meal-attributes li {
     margin-left: 0px;
-    margin-right: 12px;
+    margin-right: 11px;
     float: left;
 }
 
@@ -501,16 +503,45 @@ ul.result-meal-attributes li .attribute-value {
     color: #b3b3b3;
 }
 
+.result-description ul.ingredients {
+    clear: both;
+    list-style: none;
+    padding-top: 8px;
+    
+    border-top: 1px solid #747474;
+}
+
+.result-description ul.ingredients li {
+	float: left;
+	margin-left: 0px;
+    margin-right: 16px;
+    
+    color: #b3b3b3;
+}
+
+.ingredient-name {
+    color: #afdffa;
+}
+
+.ingredient-amount {
+    padding-right: 2px;
+    color: #ffffff;
+}
+
 ul.result-meal-attributes li,
-.result-description p {
-    font-size: 13px;
-    font-weight: 300;
+ul.ingredients li {
+	font-family: "Droid Sans", "Myriad Pro", "Helvetica", "Arial", sans-serif;
+	font-size: 10px;
 }
 
 .result-description p {
-	margin-bottom: 0px;
-	padding-top: 8px;
-	clear: both;
+    font-family: "Droid Sans", "Myriad Pro", "Helvetica", "Arial", sans-serif;
+    font-size: 11px;
+    
+    padding-top: 12px;
+    margin-bottom: 0px;
+    clear: both;
+    line-height: 1.5;
 }
 
 .level_verylow { color: #e46f6f !important }

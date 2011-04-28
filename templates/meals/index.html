@@ -12,7 +12,7 @@
     <h2 id="apply-filters-heading">Apply some filters</h2>
     
     <fieldset class="contains-select">
-        <legend>
+        <legend title="Filter by duration?">
             {{ filterform.filter_duration }}
             <label for="id_filter_duration">{{ filterform.filter_duration.label }}?</label>
         </legend>
@@ -25,7 +25,7 @@
     </fieldset>
                 
 	<fieldset class="contains-select">
-	    <legend>
+	    <legend title="Filter by the price?">
 	        {{ filterform.filter_price }}
 	        <label for="id_filter_price">{{ filterform.filter_price.label }}?</label>
 	    </legend>
@@ -38,7 +38,7 @@
 	</fieldset>
                 
     <fieldset>
-        <legend>
+        <legend title="Filter by the complexity of preparation?">
             {{ filterform.filter_complexity }}
             <label for="id_filter_complexity">{{ filterform.filter_complexity.label }}?</label>
         </legend>
@@ -50,7 +50,7 @@
     </fieldset>
                 
     <fieldset>
-        <legend>
+        <legend title="Filter by nutrient content?">
             {{ filterform.filter_nutrient_content }}
             <label for="id_filter_nutrient_content">{{ filterform.filter_nutrient_content.label }}?</label>
         </legend>
@@ -62,7 +62,7 @@
     </fieldset>
     
     <fieldset>
-        <legend>
+        <legend title="Only vegetarian meals?">
             <input type="checkbox" class="hidden" />
             <label for="id_vegetarian_0">{{ filterform.vegetarian.label }}?</label>
         </legend>
@@ -74,7 +74,7 @@
     </fieldset>
     
     <fieldset>
-        <legend>
+        <legend title="Only vegan meals?">
             <input type="checkbox" class="hidden" />
             <label for="id_vegan_0">{{ filterform.vegan.label }}?</label>
         </legend>
@@ -86,7 +86,7 @@
     </fieldset>
     
     <fieldset>
-        <legend>
+        <legend title="Only meals that you've not eaten too often?">
             {{ filterform.exclude_often_eaten }}
             <label for="id_exclude_often_eaten">{{ filterform.exclude_often_eaten.label }}?</label>
         </legend>

@@ -25,15 +25,16 @@
        </div>
        
        {% if user.is_authenticated and mg.meal.id %}
-           <div class="result-eatencounter">{% times_eaten mg.meal user %}</div>
+           <div class="result-eatencounter" title="How many times you've eaten this meal.">{% times_eaten mg.meal user %}</div>
            <a href="{% url rdm_have_eaten mg.meal.id %}?{{ grouped_meals_urlencoded }}"
               class="result-haveeaten button"
-              ondragstart="return false;">Have eaten!</a>
+              ondragstart="return false;" title="Click if you've recently eaten this meal.">Have eaten!</a>
        {% endif %}
        
        <div class="clear"></div>
        
        <div class="result-description">
+           {% if mg.meal.id %}
            <ul class="result-meal-attributes">
                <li class="meal-price">
                    <span class="attribute-label">Price</span>
@@ -63,7 +64,16 @@
                </li>
                {% endif %}
            </ul>
+           <ul class="ingredients">
+	           {% for ing in mg.meal.ingredients.all %}
+	                <li><span class="ingredient-amount">{{ ing.amount }}</span> <span class="ingredient-name">{{ ing.name }}</span></li>
+	           {% endfor %}
+           {% if mg.meal.ingredients.all|length == 0 %}
+                <li>No ingredients given.</li>
+           {% endif %}
+           </ul>
            <p>{{ mg.meal.notes }}</p>
+           {% endif %}
        </div>
 	</li>
 {% endfor %}
