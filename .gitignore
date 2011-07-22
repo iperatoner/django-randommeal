@@ -1,1 +1,4 @@
 *.pyc
+settings_server.py
+*.db
+*.sqlite
