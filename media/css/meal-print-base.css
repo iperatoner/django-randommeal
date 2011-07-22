@@ -1,0 +1,70 @@
+body, p {
+    font-family: "Cambria", "Georgia", "Garamond", "Times", serif;
+    line-height: 1.65;
+    font-size: 14px;
+}
+
+p { margin-top: 0; margin-bottom: 16px; }
+
+html { background: #dfdfdf; }
+
+body {
+    margin: 0px;
+    
+    margin-left: auto;
+    margin-right: auto;
+    
+    width: 700px;
+    padding: 60px;
+    
+    background: #ffffff;
+}
+
+h1, h2 {
+    font-family: "Myriad Pro Cond", "Helvetica", "Arial", sans-serif;
+    font-weight: normal;
+    font-size: 25px;
+}
+
+h1 {
+	font-size: 33px;
+    text-align: center;
+    
+	padding-bottom: 20px;   
+    margin-top: 0;
+    
+    border-bottom: 1px solid #dfdfdf; 
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+.preparations,
+.ingredients {
+	width: 50%;
+	float: left;
+}
+.ingredients { width: 46%; padding-right: 4%; }
+
+.ingredients ul {
+	padding: 0;
+	margin: 0;
+	margin-left: 18px;
+	
+	list-style: square;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+ 
+.clearfix {
+    display: inline-block;
+    width: 100%;
+}

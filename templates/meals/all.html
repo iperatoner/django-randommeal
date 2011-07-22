@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load meal_tags %}
+
+{% block extra_js %}<script type="text/javascript" src="{{ MEDIA_URL }}js/result-collapse.js"></script>{% endblock %}
+
+{% block title %}All meals{% endblock %}
+
+{% block main %}
+<h2 id="all-meals-heading">All available meals</h2>
+    
+{% for mt in mealtypes %}
+    <h3 class="meal-type-heading">{{ mt.title }}</h3>
+    <div class="type-meals">
+		<ul class="universal-list result-list all-meals-list">
+		{% for m in mt.meal_set.all %}
+		    <li>
+			   
+		       <div class="result-arrow"></div>
+		       
+		       <div class="result-mealtitle">
+		           {{ m.title }} 
+		       </div>
+		       
+		       {% if user.is_authenticated %}
+		           <div class="result-eatencounter" title="How many times you've eaten this meal.">{% times_eaten m user %}</div>
+		           <a href="{% url rdm_have_eaten m.id 'all' %}"
+		              class="result-haveeaten button"
+		              ondragstart="return false;" title="Click if you've recently eaten this meal.">Have eaten!</a>
+		       {% endif %}
+		       
+		       <div class="clear"></div>
+		       
+		       <div class="result-description">
+		           {% if m.id %}
+		           <ul class="result-meal-attributes">
+		               <li class="meal-price">
+		                   <span class="attribute-label">Price</span>
+		                   <span class="attribute-value">{{ m.price|german_price }}&euro;</span>
+		               </li>
+		               <li class="meal-duration">
+		                   <span class="attribute-label">Duration</span>
+		                   <span class="attribute-value">{{ m.duration }}min</span>
+		               </li>
+		               <li class="meal-complexity">
+		                   <span class="attribute-label">Complexity</span>
+		                   <span class="attribute-value">{% nice_level_value m.complexity %}</span>
+		               </li>
+		               <li class="meal-nutritivevalue">
+		                   <span class="attribute-label">Nutritive value</span>
+		                   <span class="attribute-value">{% nice_level_value m.nutrient_content %}</span>
+		               </li>
+		               
+		               {% if m.vegetarian %}
+		               <li class="meal-vegetarian">
+		                   <span class="attribute-value level_high">Vegetarian</span>
+		               </li>
+		               {% endif %}
+		               {% if m.vegan %}
+		               <li class="meal-vegetarian">
+		                   <span class="attribute-value level_high">Vegan</span>
+		               </li>
+		               {% endif %}
+		           </ul>
+		           <ul class="ingredients">
+			           {% for ing in m.ingredients.all %}
+			                <li><span class="ingredient-amount">{{ ing.amount }}</span> <span class="ingredient-name">{{ ing.name }}</span></li>
+			           {% endfor %}
+		           {% if m.ingredients.all|length == 0 %}
+		                <li>No ingredients given.</li>
+		           {% endif %}
+		           </ul>
+		           <p>{{ m.notes }}</p>
+		           {% endif %}
+		       </div>
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
+{% endfor %}
+{% endblock %}

@@ -7,6 +7,18 @@
 
 {% block main %}
 <h2 id="result-heading">Result</h2>
+
+<form method="post" {% if form %}action="{% url rdm_generate %}"{% else %}action="{% url rdm_index %}"{% endif %} class="regenerate">
+	<div class="form-fields">
+	    {% csrf_token %}
+	    {% if form %}
+	       {{ form.as_p }}
+        {% endif %}
+	</div>
+	
+	<input type="submit" value="Recompile" title="Compile a new list." />
+</form>
+
 <ul class="universal-list result-list">
 {% for mg in grouped_meals %}
 	<li>
@@ -26,7 +38,7 @@
        
        {% if user.is_authenticated and mg.meal.id %}
            <div class="result-eatencounter" title="How many times you've eaten this meal.">{% times_eaten mg.meal user %}</div>
-           <a href="{% url rdm_have_eaten mg.meal.id %}?{{ grouped_meals_urlencoded }}"
+           <a href="{% url rdm_have_eaten mg.meal.id 'result' %}?{{ grouped_meals_urlencoded }}"
               class="result-haveeaten button"
               ondragstart="return false;" title="Click if you've recently eaten this meal.">Have eaten!</a>
        {% endif %}

@@ -1,0 +1,15 @@
+{% extends 'print-base.html' %}
+{% load meal_tags %}
+{% load markup %}
+
+{% block page_title %}Print meal "{{ meal.title }}"{% endblock %}
+
+{% block meal_title %}{{ meal.title }}{% endblock %}
+
+{% block meal_ingredients %}
+{% for ing in meal.ingredients.all %}
+    <li><strong>{{ ing.amount }}</strong> {{ ing.name }}</li>
+{% endfor %}
+{% endblock %}
+
+{% block meal_preparation %}{{ meal.notes|textile }}{% endblock %}

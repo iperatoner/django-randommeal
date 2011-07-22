@@ -1,8 +1,6 @@
 from django.db import models as django_models
 from django.db.models.query import QuerySet
 
-import models
-
 
 class EatenMealQuerySet(QuerySet):
     def get_meals(self):

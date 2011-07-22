@@ -12,7 +12,19 @@ urlpatterns = patterns('',
     ),
     
     url(
-        r'^have_eaten/(?P<meal_id>[0-9]+)/$',
+        r'^all-meals/$',
+        views.all_meals,
+        name='rdm_all'
+    ),
+    
+    url(
+        r'^print-meal/(?P<meal_id>[0-9]+)/$',
+        views.print_meal,
+        name='rdm_print_meal'
+    ),
+    
+    url(
+        r'^have-eaten/(?P<meal_id>[0-9]+)/(?P<redirect>[a-z]+)/$',
         views.have_eaten,
         name='rdm_have_eaten'
     ),

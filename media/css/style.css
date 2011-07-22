@@ -1,5 +1,5 @@
 body {
-    background-image: url(../img/satin_light.gif);
+    background-image: url(../img/wood_leather.png);
     background-repeat: repeat;
 }
 
@@ -17,6 +17,7 @@ h1 {
     margin: 0px;
     
     background-color: rgba(0, 0, 0, .24);
+    /*background: url(../img/leather_1.png);*/
     text-shadow: -2px -1px 2px rgba(0, 0, 0, .85);
     
     cursor: default;
@@ -59,17 +60,32 @@ div#content-wrapper {
 /*** SPECIAL HEADINGS ***/
 
 h2#apply-filters-heading,
-h2#result-heading {
-    margin-top: 12px;
+h2#result-heading,
+h2#all-meals-heading,
+h3.meal-type-heading  {
+    margin-top: 14px;
     margin-bottom: 0px;
     padding-bottom: 10px;
     
     border-bottom: 1px solid #424242;
 }
 
-h2#result-heading {
+h2#result-heading,
+h2#all-meals-heading {
     font-size: 26px;
     font-weight: 400;
+}
+
+h3.meal-type-heading {
+	font-size: 19px;
+	
+    margin-top: 0;
+    padding-top: 16px;
+    padding-bottom: 14px;
+    
+    background: #515355;
+    border-top: 1px solid #848484;
+    border-bottom-color: #2a2a2a;
 }
 
 
@@ -100,6 +116,9 @@ form.filter-form fieldset {
     background-color: #6d6d6d;
 }
 form.filter-form fieldset.contains-select { padding-bottom: 8px } /* Special adjustments because the select element break the height/padding */
+
+ul.universal-list.all-meals-list { border-bottom: 1px solid #424242; }
+.type-meals:last-child ul.universal-list.all-meals-list { border-bottom: 0; }
 
 .universal-list > li:last-child,
 form.filter-form fieldset:last-child {
@@ -318,6 +337,44 @@ input.list-compile:active {
 }
 
 
+/*** RELOAD FORM ***/
+
+form.regenerate .form-fields {
+    display: none;
+    visibility: hidden;
+}
+
+
+form.regenerate input[type=submit] {
+    border: none;
+    background: transparent url(../img/refresh.png) no-repeat;
+    
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    
+    padding: 0;
+    
+    text-indent: -7777px;
+    
+    width: 22px;
+    height: 22px;
+    
+    float: right;
+    margin-top: -38px;
+    margin-right: 5px;
+    
+    cursor: pointer;
+    opacity: 0.7;
+}
+form.regenerate input[type=submit]:hover {
+    opacity: 1;
+}
+form.regenerate input[type=submit]:active {
+	position: relative;
+	top: 1px;
+}
+
 /*** RESULT LIST ***/
 
 .result-list {
@@ -360,6 +417,7 @@ input.list-compile:active {
 .result-mealtitle {
 	width: 305px;
 }
+ul.result-list.all-meals-list .result-mealtitle { width: 395px; }
 
 .result-eatencounter {
     -moz-user-select: none;
@@ -479,6 +537,7 @@ input.list-compile:active {
     margin-left: 136px;
     padding-top: 21px; /* Using padding, because margin begins at 21px. Weird. */
 }
+.all-meals-list .result-description { margin-left: 47px; }
 
 ul.result-meal-attributes {
 	margin: 0;

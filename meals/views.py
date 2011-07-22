@@ -56,7 +56,7 @@ def generate(request):
             # A list of type+meal dicts
             grouped_meals = []
             
-            # Going through all available mealtypes and randomly select a meal of it
+            # Going through all available mealtypes and randomly select a meal of each of them
             mealtypes = MealType.objects.all().order_by('position')
             for mt in mealtypes:
                 mealfilter.filter_type(mt)
@@ -86,6 +86,7 @@ def generate(request):
     else:
         grouped_meals_urlencoded = 'grouped_meals=' + str(request.GET.get('grouped_meals'))
         grouped_meals = urldecode_grouped_meals(request.GET.get('grouped_meals'))
+        form = False
     
     if request.is_ajax():
         return JSONResponse({
@@ -95,11 +96,23 @@ def generate(request):
     else:
         return render_template(request, 'meals/result.html',
             grouped_meals=grouped_meals,
-            grouped_meals_urlencoded=grouped_meals_urlencoded
+            grouped_meals_urlencoded=grouped_meals_urlencoded,
+            form=form
         )
+        
+def all_meals(request):
+    mealtypes = MealType.objects.all().order_by('position')
+    return render_template(request, 'meals/all.html', mealtypes=mealtypes)
+        
+def print_meal(request, meal_id):
+    meal = get_object_or_404(Meal, id=meal_id)
+    
+    return render_template(request, 'meals/print-meal.html',
+        meal=meal
+    )
 
 @login_required
-def have_eaten(request, meal_id):
+def have_eaten(request, meal_id, redirect):
     meal = get_object_or_404(Meal, id=meal_id)
     
     # Get the proper EatenMeal-instance
@@ -112,5 +125,7 @@ def have_eaten(request, meal_id):
     eaten_meal.last_time = datetime.now()
     eaten_meal.save()
     
-    if not request.is_ajax():
+    if not request.is_ajax() and redirect == 'result':
         return HttpResponseRedirect(reverse('rdm_generate') + '?' + request.GET.urlencode())
+    elif redirect == 'all':
+        return HttpResponseRedirect(reverse('rdm_all'))

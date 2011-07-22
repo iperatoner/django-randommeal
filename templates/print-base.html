@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %} &bull; RandomMeal</title>
+        
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        
+        <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/meal-print-base.css" />
+        <link rel="stylesheet" type="text/css" media="print" href="{{ MEDIA_URL }}css/meal-print-only.css" />
+    </head>
+
+    <body>
+        <h1>{% block meal_title %}{% endblock %}</h1>
+        
+        <div class="clearfix">
+	        <div class="ingredients">
+		        <h2>Zutaten:</h2>
+		        <ul>{% block meal_ingredients %}{% endblock %}</ul>
+	        </div>
+	        
+	        <div class="preparations">
+		        <h2>Zubereitung:</h2>
+		        {% block meal_preparation %}{% endblock %}
+	        </div>
+        </div>
+    </body>
+</html>
