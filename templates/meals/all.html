@@ -31,8 +31,7 @@
 		       <div class="clear"></div>
 		       
 		       <div class="result-description">
-		           {% if m.id %}
-		           <ul class="result-meal-attributes">
+		           <ul class="result-meal-attributes clearfix">
 		               <li class="meal-price">
 		                   <span class="attribute-label">Price</span>
 		                   <span class="attribute-value">{{ m.price|german_price }}&euro;</span>
@@ -70,7 +69,9 @@
 		           {% endif %}
 		           </ul>
 		           <p>{{ m.notes }}</p>
-		           {% endif %}
+		           <a href="{% url rdm_print_meal m.id %}" target="_blank" class="button print-recipe-button">
+		            Print recipe
+		           </a>
 		       </div>
 			</li>
 		{% endfor %}

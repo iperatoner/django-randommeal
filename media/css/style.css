@@ -1,3 +1,5 @@
+html { height: 101%; }
+
 body {
     background-image: url(../img/wood_leather.png);
     background-repeat: repeat;
@@ -469,6 +471,12 @@ ul.result-list.all-meals-list .result-mealtitle { width: 395px; }
     
     font-size: 14px;
     
+    cursor: default;
+    outline: 0px none;
+}
+
+.result-haveeaten,
+.print-recipe-button {
     border-top-color: #797979;
     border-left-color: #727272;
     
@@ -488,12 +496,10 @@ ul.result-list.all-meals-list .result-mealtitle { width: 395px; }
         rgb(86,86,86) 0%,
         rgb(107,107,107) 100%
     );
-    
-    cursor: default;
-    outline: 0px none;
 }
 
-.result-haveeaten:hover {
+.result-haveeaten:hover,
+.print-recipe-button:hover {
     border-top-color: #878787;
     border-left-color: #818181;
     
@@ -510,7 +516,8 @@ ul.result-list.all-meals-list .result-mealtitle { width: 395px; }
         rgb(120,120,120) 100%
     );
 }
-.result-haveeaten:active {
+.result-haveeaten:active, 
+.print-recipe-button:active {
     border-top: none;
     border-left: none;
     border-bottom: 1px solid #878787;
@@ -541,7 +548,7 @@ ul.result-list.all-meals-list .result-mealtitle { width: 395px; }
 
 ul.result-meal-attributes {
 	margin: 0;
-	padding-bottom: 21px;
+	padding-bottom: 6px;
 	list-style-type: none;
 	display: block;
 	
@@ -550,7 +557,7 @@ ul.result-meal-attributes {
 
 ul.result-meal-attributes li {
     margin-left: 0px;
-    margin-right: 11px;
+    margin-right: 16px;
     float: left;
 }
 
@@ -601,6 +608,23 @@ ul.ingredients li {
     margin-bottom: 0px;
     clear: both;
     line-height: 1.5;
+}
+
+.print-recipe-button {
+	display: inline-block;
+	
+	font-family: "Droid Sans", "Helvetica", "Arial", sans-serif;
+	font-size: 11px;
+	line-height: 1;
+	
+	padding-top: 4px;
+	padding-bottom: 5px;
+	padding-left: 8px;
+	padding-right: 8px;
+	
+	color: #fff;
+	
+	margin-top: 15px;
 }
 
 .level_verylow { color: #e46f6f !important }

@@ -47,7 +47,7 @@
        
        <div class="result-description">
            {% if mg.meal.id %}
-           <ul class="result-meal-attributes">
+           <ul class="result-meal-attributes clearfix">
                <li class="meal-price">
                    <span class="attribute-label">Price</span>
                    <span class="attribute-value">{{ mg.meal.price|german_price }}&euro;</span>
@@ -85,6 +85,9 @@
            {% endif %}
            </ul>
            <p>{{ mg.meal.notes }}</p>
+           <a href="{% url rdm_print_meal mg.meal.id %}" target="_blank" class="button print-recipe-button">
+            Print recipe
+           </a>
            {% endif %}
        </div>
 	</li>
