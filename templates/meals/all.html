@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load meal_tags %}
+{% load markup %}
 
 {% block extra_js %}<script type="text/javascript" src="{{ MEDIA_URL }}js/result-collapse.js"></script>{% endblock %}
 
@@ -68,7 +69,7 @@
 		                <li>No ingredients given.</li>
 		           {% endif %}
 		           </ul>
-		           <p>{{ m.notes }}</p>
+		           <p>{{ m.notes|textile }}</p>
 		           <a href="{% url rdm_print_meal m.id %}" target="_blank" class="button print-recipe-button">
 		            Print recipe
 		           </a>
