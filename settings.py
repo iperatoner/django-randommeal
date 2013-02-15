@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'D:\\Projekte\\Hobbyprojekte\\Internet-Applikationen\\RandomMeal\\Eclipse-Code\\django_randommeal\\sqlite.db',                      # Or path to database file if using sqlite3.
+        'NAME': 'Z:\\Projekte\\Freizeitprojekte\\Internetprojekte\\RandomMeal\\Eclipse-Code\\django_randommeal\\sqlite.db',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -45,7 +45,7 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = 'D:/Projekte/Hobbyprojekte/Internet-Applikationen/RandomMeal/Eclipse-Code/django_randommeal/media/'
+MEDIA_ROOT = 'Z:/Projekte/Freizeitprojekte/Internetprojekte/RandomMeal/Eclipse-Code/django_randommeal/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -78,7 +78,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'django_randommeal.urls'
 
 TEMPLATE_DIRS = (
-    'D:\\Projekte\\Hobbyprojekte\\Internet-Applikationen\\RandomMeal\\Eclipse-Code\\django_randommeal\\templates\\'
+    'Z:\\Projekte\\Freizeitprojekte\\Internetprojekte\\RandomMeal\\Eclipse-Code\\django_randommeal\\templates\\'
 )
 
 INSTALLED_APPS = (
